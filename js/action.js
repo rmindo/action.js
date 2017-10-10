@@ -35,7 +35,7 @@ var action = (function() {
 
 			if( node.nodeType === 1 ) {
 
-				return this.replace( data );
+				return this.content( data );
 			}
 		},
 
@@ -57,7 +57,7 @@ var action = (function() {
 
 
 
-		replace: function( data ) {
+		content: function( data ) {
 
 			var template = this.this().children[0];
 
@@ -79,7 +79,7 @@ var action = (function() {
 
 				var node = dom.children[0].cloneNode();
 
-				node.innerHTML = helpers.replace( item );
+				node.innerHTML = helpers.content( item );
 
 
 				callback({

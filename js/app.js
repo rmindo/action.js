@@ -5,7 +5,15 @@ action.controller( 'tae', function( method ) {
 
 
 
-	action.view( 'test', function( test ) {
+	action.view( 'heading', function( test ) {
+
+		method.prepend( method.create( 'h1' ) );
+
+		return 'Restaurants';
+	});
+
+
+	action.view( 'tubol', function( test ) {
 
 
 		return method.foreach( function( each ) {
@@ -16,15 +24,6 @@ action.controller( 'tae', function( method ) {
 	});
 
 
-	action.view( 'heading', function( test ) {
-
-		method.prepend( method.create( 'div', function( node ) {
-
-			// node.id = 'create';
-		}));
-
-		return '<h1>Restaurants</h1>';
-	});
 
 });
 
