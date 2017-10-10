@@ -1,54 +1,164 @@
 var action = (function() {
 
-	var temp = {};
+	var factory = {};
 
 
-	temp.loop = function( id, data, callback ) {
-
-		var con = document.getElementById(id);
+	var helpers = {
 
 
-		for( var index = 0; index < data.length; index++ ) {
+		this: function() {
+
+			return document.getElementById( helpers.target );
+		},
 
 
-			var node = con.children[0].cloneNode();
+		parent: function() {
 
-			var test = {
-
-				node: node,
-
-				index: index,
-
-				render: function( node ) {
-
-					node.innerHTML = temp.render( con.children[0], data[index] );	
-
-					con.appendChild( node );
-				}
-			};
-		
-			node.removeAttribute('loop');
+			return document.getElementById( factory.parent );
+		},
 
 
-			callback( test );
+		append: function( node ) {
+
+			this.parent().appendChild( node );
+		},
+
+
+
+		prepend: function( node ) {
+
+			this.parent().insertBefore( node, this.parent().children[0] );
+		},
+
+
+		render: function( node, data ) {
+
+			if( node.nodeType === 1 ) {
+
+				return this.replace( data );
+			}
+		},
+
+
+		create: function( tag, callback ) {
+
+			var node = document.createElement( tag );
+
+			node.id = helpers.target;
+
+
+			if( callback ) {
+				
+				callback( node );
+			}
+
+			return node;
+		},
+
+
+
+		replace: function( data ) {
+
+			var template = this.this().children[0];
+
+			return template.innerHTML.replace( new RegExp( template.textContent.replace(/\s/g, '').match( /(\{[a-z]+\})/g ).join('|'), 'g' ),  function( matched ) {
+
+				return data[matched.match( /([a-z]+)/g )];
+			});
+		},
+
+
+
+		foreach: function( callback ) {
+
+			var out = '',
+				dom = this.this();
+
+
+			window[dom.getAttribute('foreach')].forEach( function( item, index ) {
+
+				var node = dom.children[0].cloneNode();
+
+				node.innerHTML = helpers.replace( item );
+
+
+				callback({
+
+					node: node,
+
+					index: index
+				});
+
+
+				out += node.outerHTML;
+			});
+
+			dom.children[0].remove();
+
+			dom.removeAttribute('foreach');
+
+
+			return out;
 		}
 
-		con.children[0].remove();
-
 	};
 
 
 
-	temp.render = function( template, data ) {
+
+	factory.view = function( view, callback ) {
 
 
-		return template.innerHTML.replace( new RegExp( template.textContent.match( /(\{[a-z]+\})/g ).join('|'), 'g' ),  function( matched ) {
 
-			return data[matched.match( /([a-z]+)/g )];
-		});
+		if( typeof view == 'string' ) {
+
+			helpers.target = view;
+
+			var view = document.getElementById(view);
+		}
+
+
+
+		if( callback ) {
+
+			if( view == null ) {
+
+				var view = callback( helpers );
+
+				document.getElementById( helpers.target ).innerHTML = view;
+
+			} else {
+
+				if( view['parentElement'].id === factory.parent ) {
+
+					view.innerHTML = callback( helpers );
+				}
+			}
+		}
+
+	},
+
+
+
+
+	factory.model = function( arg ) {
+
+
+	},
+
+
+
+	factory.controller = function( con, callback ) {
+
+		helpers.target = con;
+		factory.parent = con;
+
+
+		return callback( helpers );
 	};
 
 
-	return temp;
+
+	return factory;
 
 })();

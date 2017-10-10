@@ -1,0 +1,56 @@
+[
+    {
+        "specialty": "Lamb Salad with Fregola",
+        "revenue": 634202,
+        "star": 4,
+        "patrons": 70,
+        "visits": 90,
+        "type": 1,
+        "transactions": 2346
+    },
+    {
+        "specialty": "Smoked Pork Jowl with Pickles",
+        "revenue": 634202,
+        "star": 5,
+        "patrons": 99,
+        "visits": 128,
+        "type": 2,
+        "transactions": 2346
+    },
+    {
+        "specialty": "Scallop Sashimi with Meyer Lemon Confit",
+        "revenue": 634202,
+        "star": 3,
+        "patrons": 20,
+        "visits": 70,
+        "type": 5,
+        "transactions": 2346
+    },
+    {
+        "specialty": "Lamb Salad with Fregola",
+        "revenue": 634202,
+        "star": 4,
+        "patrons": 70,
+        "visits": 90,
+        "type": 1,
+        "transactions": 2346
+    },
+    {
+        "specialty": "Smoked Pork Jowl with Pickles",
+        "revenue": 634202,
+        "star": 5,
+        "patrons": 99,
+        "visits": 128,
+        "type": 2,
+        "transactions": 2346
+    },
+    {
+        "specialty": "Scallop Sashimi with Meyer Lemon Confit",
+        "revenue": 634202,
+        "star": 3,
+        "patrons": 20,
+        "visits": 70,
+        "type": 5,
+        "transactions": 2346
+    }
+]
